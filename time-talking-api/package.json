@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wstest": "wscat -c ws://localhost:8080"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ws": "^7.3.1"
+    "chalk": "^4.1.0",
+    "ws": "^7.3.1",
+    "wscat": "^4.0.1"
   }
 }
