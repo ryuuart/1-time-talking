@@ -1,10 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import './Messages.css';
+
+// Components 
+import Display from './Components/UI/Display';
 
 function App() {
   return (
     <main>
-      <h1>hello!</h1>
+      <Display className="messages-display--receiver"/>
+      <Display className="messages-display--sender"/>
     </main>
   );
 }
