@@ -1,38 +1,71 @@
-.App {
-  text-align: center;
-}
+main {
+  /* CSS Vars */
+  --box-margin: 2rem;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+  padding: var(--box-margin);
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-flow: column nowrap;
+  justify-items: stretch;
+
+  flex-grow: 1;
 }
 
-.App-link {
-  color: #61dafb;
+form {
+  display: flex;
+  flex-flow: column wrap;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  margin-bottom: 1rem;
+}
+
+input[type="text"], textarea {
+    outline: none;
+    border: 2px solid black;
+    border-radius: 0.35rem;
+
+    padding: 0.5rem 1rem;
+
+    font-family: inherit;
+    font-size: 1.2rem;
+
+    resize: none;
+
+    transition: background-color 0.15s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+label {
+  display: block;
+
+  margin-bottom: 0.5rem;
+}
+
+input[type="text"], textarea:hover {
+    background-color: lightgray;
+}
+
+input[type="text"], textarea:focus {
+    background-color: initial;
+} 
+
+input[type="submit"], input[type="button"] {
+    background-color: black;
+    color: white;
+
+    font-family: inherit;
+
+    border-radius: 0.35rem;
+    border: none;
+    outline: none;
+
+    padding: 1rem;
+}
+
+input[type="button"][value="Logout"] {
+  background-color: orangered;
+}
+
+input[type="submit"]:active, input[type="button"]:active {
+  transform: scale(0.95);
 }
