@@ -10,7 +10,7 @@ export class ReceiverDisplay extends React.Component {
     render() {
         return (
             <article className={`messages-display ${this.props.className}`}>
-                We are Mobi — we have a lot of fun and make stuff too from 2008 – 2077
+                {this.props.data && this.props.data.userName !== this.props.userName && this.props.data.message}
             </article>
         )
     }

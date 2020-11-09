@@ -11,6 +11,7 @@ export default class Messages extends React.Component {
         this.state = {
             ws: null,
             userName: "",
+            dataFromServer: null,
         }
 
         this.initWebSocket = this.initWebSocket.bind(this);
@@ -31,8 +32,14 @@ export default class Messages extends React.Component {
 
         this.ws = new WebSocket("ws://localhost:8080/");
         this.setState({
-            ws: this.ws
+            ws: this.ws,
         })
+
+        this.ws.onmessage = evt => {
+            const message = JSON.parse(evt.data);
+            this.setState({ dataFromServer: message });
+            console.log(message)
+        }
 
         this.ws.onerror = function () {
             console.error('WebSocket error');
@@ -40,12 +47,6 @@ export default class Messages extends React.Component {
 
         this.ws.onopen = () => {
             console.log('connected');
-        }
-
-        this.ws.onmessage = evt => {
-            const message = JSON.parse(evt.data);
-            this.setState({ dataFromServer: () => message });
-            console.log(message)
         }
 
         this.ws.onclose = () => {
@@ -58,7 +59,7 @@ export default class Messages extends React.Component {
         return (
             <React.Fragment>
                 <Login initWebSocket={this.initWebSocket} setUserName={this.setUserName} />
-                <ReceiverDisplay socket={this.state.ws} className="messages-display--receiver" />
+                <ReceiverDisplay socket={this.state.ws} userName={this.state.userName} data={this.state.dataFromServer} className="messages-display--receiver" />
                 <SenderDisplay socket={this.state.ws} userName={this.state.userName} lassName="messages-display--sender" />
             </React.Fragment>
         )
