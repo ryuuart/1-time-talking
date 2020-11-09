@@ -9,10 +9,18 @@ export default class Messages extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ws: null
+            ws: null,
+            userName: "",
         }
 
         this.initWebSocket = this.initWebSocket.bind(this);
+        this.setUserName = this.setUserName.bind(this);
+    }
+
+    setUserName(name) {
+        this.setState({
+            userName: name 
+        })
     }
 
     initWebSocket() {
@@ -49,9 +57,9 @@ export default class Messages extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Login initWebSocket={this.initWebSocket} />
+                <Login initWebSocket={this.initWebSocket} setUserName={this.setUserName} />
                 <ReceiverDisplay socket={this.state.ws} className="messages-display--receiver" />
-                <SenderDisplay socket={this.state.ws} lassName="messages-display--sender" />
+                <SenderDisplay socket={this.state.ws} userName={this.state.userName} lassName="messages-display--sender" />
             </React.Fragment>
         )
     }

@@ -36,6 +36,7 @@ app.use(cors({
 }))
 app.use(express.static('public'));
 app.use(sessionParser);
+app.use(express.json());
 
 app.post('/login', function (req, res) {
     // "Log in" user and set userId to session.
@@ -44,8 +45,10 @@ app.post('/login', function (req, res) {
 
     console.log(`Updating session for ${id}`);
     req.session.userId = id;
-    console.log(req.session);
-    console.log(req.sessionID)
+    req.session.userName = req.body.userName;
+
+    console.log(chalk.green("[SESSION] \n"), req.session);
+    console.log(chalk.green("[SESSION] -- Session ID: "), req.sessionID)
 
     res.send({ result: 'OK', message: 'Session updated' });
 })
@@ -104,7 +107,7 @@ wss.on('connection', function (socket, request) {
 
     // When you receive a message, send that message to every socket.
     socket.on('message', function (msg) {
-        console.log(`Received message ${msg} from user ${socket.url}`)
+        console.log(`Received message ${msg} from user ${request.session.userName}`)
         sockets.forEach(s => s.send(msg));
     })
 

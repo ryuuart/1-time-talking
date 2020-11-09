@@ -30,7 +30,7 @@ export class SenderDisplay extends React.Component {
         this.setState((state, props) => ({
             message: state.value
         }), () => {
-            this.props.socket.send(JSON.stringify({ message: this.state.message }));
+            this.props.socket.send(JSON.stringify({ userName: this.props.userName, message: this.state.message }));
         })
 
         event.preventDefault();
