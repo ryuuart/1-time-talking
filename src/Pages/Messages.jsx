@@ -37,7 +37,9 @@ export default class Messages extends React.Component {
 
         this.ws.onmessage = evt => {
             const message = JSON.parse(evt.data);
-            this.setState({ dataFromServer: message });
+            if (message.userName !== this.state.userName) {
+                this.setState({ dataFromServer: message });
+            }
             console.log(message)
         }
 
