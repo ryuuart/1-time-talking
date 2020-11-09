@@ -32,6 +32,8 @@ input[type="text"], textarea {
 
     resize: none;
 
+    background-color: white;
+
     transition: background-color 0.15s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
@@ -46,7 +48,7 @@ input[type="text"], textarea:hover {
 }
 
 input[type="text"], textarea:focus {
-    background-color: initial;
+    background-color: white;
 } 
 
 input[type="submit"], input[type="button"] {
@@ -59,7 +61,11 @@ input[type="submit"], input[type="button"] {
     border: none;
     outline: none;
 
-    padding: 1rem;
+    padding: 0.5rem 0.25rem;
+}
+
+input[type="color"] {
+  margin-bottom: 0;
 }
 
 input[type="button"][value="Logout"] {

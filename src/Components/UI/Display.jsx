@@ -9,8 +9,8 @@ export class ReceiverDisplay extends React.Component {
 
     render() {
         return (
-            <article className={`messages-display ${this.props.className}`}>
-                {this.props.data && this.props.data.userName !== this.props.userName && this.props.data.message}
+            <article className={`messages-display ${this.props.className}`} style={{ background: this.props.data && this.props.data.message.colorValue }}>
+                {this.props.data && this.props.data.message.textValue}
             </article>
         )
     }
@@ -20,37 +20,54 @@ export class SenderDisplay extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { value: "", messasge: "" };
+        this.state = {
+            textValue: "", colorValue: "", message: {
+                textValue: "",
+                colorValue: "#FFFFFF",
+            }
+        };
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
+        this.onColorChange = this.onColorChange.bind(this);
     }
 
     onSubmit(event) {
         this.setState((state, props) => ({
-            message: state.value
-        }), () => {
+            message: {
+                textValue: this.state.textValue,
+                colorValue: this.state.colorValue,
+            }
+        }), () => {                
+            // console.log(this.state.message)
             this.props.socket.send(JSON.stringify({ userName: this.props.userName, message: this.state.message }));
         })
 
         event.preventDefault();
     }
 
-    onChange(event) {
+    onTextChange(event) {
         this.setState({
-            value: event.target.value
+            textValue: event.target.value
+        })
+    }
+
+    onColorChange(event) {
+        this.setState({
+            colorValue: event.target.value
         })
     }
 
     render() {
         return (
-            <article className={`messages-display ${this.props.className}`}>
+            <article className={`messages-display ${this.props.className}`} style={{ background: this.state.colorValue }}>
                 <div className="messages-display--message">
-                    {this.state.message}
+                    {this.state.textValue}
                 </div>
 
                 <form className={`messages-display--form`} onSubmit={this.onSubmit}>
-                    <textarea rows="1" autoresize="true" value={this.state.value} onChange={this.onChange} />
+                    <textarea rows="1" autoresize="true" value={this.state.textValue} onChange={this.onTextChange} />
+                    <input type="color" value={this.state.colorValue} onChange={this.onColorChange} />
                     <input type="submit" value="Submit" />
                 </form>
             </article>

@@ -18,17 +18,31 @@
 }
 
 .messages-display--form {
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
+
+    align-items: stretch;
+}
+
+.messages-display--form > * {
+    flex: 1 1 2rem;
+}
+
+.messages-display--form > textarea {
+    flex-grow: 4;
 }
 
 .messages-display--form > input[type="submit"] {
     margin-bottom: 0;
 }
 
-.messages-display--form > textarea {
-    margin-right: 1rem;
+.messages-display--form > input[type="color"] {
+    margin-bottom: 0;
 
-    flex: 1 1 auto;
+    height: inherit;
+}
+
+.messages-display--form > *:not(:last-child) {
+    margin-right: 0.5rem;
 }
 
 .messages-display--message {
