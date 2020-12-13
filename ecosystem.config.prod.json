@@ -7,9 +7,6 @@
             "autorestart": true,
             "watch": false,
             "time": true
-        }, {
-            "name": "react",
-            "script": "serve -s build"
         }
     ]
 }
