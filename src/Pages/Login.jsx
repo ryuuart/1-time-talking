@@ -11,8 +11,8 @@ export default class Login extends React.Component {
     }
 
     onSubmit(event) {
-        fetch('http://localhost:8080/login', {
-            method: 'POST', credentials: 'include',
+        fetch('http://localhost:8081/users/login', {
+            method: 'POST', credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -24,7 +24,7 @@ export default class Login extends React.Component {
                         .then((data) => {
                             this.props.initWebSocket();
 
-                            return JSON.stringify(data, null, 2);
+                            console.log(data);
                         })
                     : Promise.reject(new Error('Unexpected response'));
             })

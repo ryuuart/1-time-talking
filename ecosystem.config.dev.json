@@ -1,0 +1,16 @@
+{
+    "apps": [
+        {
+            "name": "server",
+            "script": "index.js",
+            "instances": 1,
+            "autorestart": true,
+            "watch": true,
+            "ignore-watch": ["node_modules", "src", "build", "public"],
+            "time": true
+        }, {
+            "name": "react",
+            "script": "react-scripts start"
+        }
+    ]
+}

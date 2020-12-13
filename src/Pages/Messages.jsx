@@ -30,7 +30,7 @@ export default class Messages extends React.Component {
             this.ws.close();
         }
 
-        this.ws = new WebSocket("ws://localhost:8080/");
+        this.ws = new WebSocket("ws://localhost:8081/");
         this.setState({
             ws: this.ws,
         })

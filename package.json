@@ -13,17 +13,21 @@
     "connect-mongo": "^3.2.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "mongoose": "^5.11.7",
+    "pm2": "^4.5.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "serve": "^11.3.2",
     "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4",
     "ws": "^7.4.1"
   },
   "scripts": {
-    "start": "concurrently --kill-others \"react-scripts start\" \"cd time-talking-api && node app.js\"",
+    "start": "pm2 start ecosystem.config.prod.json --no-daemon",
+    "dev": "pm2 start ecosystem.config.dev.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
