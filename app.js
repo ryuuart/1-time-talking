@@ -5,12 +5,17 @@ const http = require('http');
 const cors = require('cors');
 const routes = require("./routes");
 const sessionParser = require("./utilities/sessionParser");
+const path = require("path");
 
 const app = express();
 
 // Serve React website if in Heroku
 if(process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, 'build')));
+    app.use(express.static(path.join(__dirname, './build')));
+
+    app.get('*', function(req, res) {
+        res.sendFile('index.html', {root: path.join(__dirname, "./build")});
+    })
 }
 
 // Enable CORS
