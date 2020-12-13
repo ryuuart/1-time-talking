@@ -15,14 +15,13 @@ if(process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, 'build')));
 
     app.get('/', function(req, res) {
-        res.sendFile('index.html', {root: path.join(__dirname, "build")});
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
     })
 }
 
 // Enable CORS
 app.use(cors({ origin: [/http:\/\/localhost:*\d*/, /http:\/\/192.168.1.172:*\d*/, /https:\/\/time-talking-app.herokuapp.com:*\d*/], credentials: true }));
 
-app.use(express.static('public'));
 app.use(sessionParser);
 app.use(express.json());
 
