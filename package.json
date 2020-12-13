@@ -52,5 +52,8 @@
   },
   "devDependencies": {
     "chalk": "^3.0.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.2.1"
   }
 }
