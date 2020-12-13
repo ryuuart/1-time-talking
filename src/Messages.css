@@ -1,11 +1,12 @@
 .messages-display {
     margin-bottom: 0;
     padding: 4rem 3rem;
+
+    min-height: 45vh;
     
     font-size: 3rem;
 
-    border-radius: 1rem;
-    border: 4px solid black;
+    border-top: 4px solid black;
 
     display: flex;
     flex-flow: column wrap;
@@ -14,11 +15,11 @@
 }
 
 .messages-display:first-of-type {
-    margin-bottom: var(--box-margin);
+    padding-bottom: var(--box-margin);
 }
 
 .messages-display--form {
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
 
     align-items: stretch;
 }

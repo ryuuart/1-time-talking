@@ -41,11 +41,6 @@ wss.on('connection', function (socket, request) {
 
     map.set(userId, socket);
 
-    // socket.on('message', function (message) {
-    //     // Here we can now use session parameters.
-    //     console.log(`Received message ${message} from user ${userId}`);
-    // });
-
     // When you receive a message, send that message to every socket.
     socket.on('message', function (msg) {
         console.log(`Received message ${msg} from user ${request.session.userName}`)

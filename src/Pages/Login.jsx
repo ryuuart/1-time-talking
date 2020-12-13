@@ -11,7 +11,7 @@ export default class Login extends React.Component {
     }
 
     onSubmit(event) {
-        fetch('http://localhost:8081/users/login', {
+        fetch('http://192.168.1.172:8081/users/login', {
             method: 'POST', credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
+            <header>
                 <h1>Login</h1>
                 <form onSubmit={this.onSubmit}>
                     <label htmlFor="input">Your name</label>
@@ -56,7 +56,7 @@ export default class Login extends React.Component {
                     <input type="submit" value="Login" />
                     <input type="button" value="Logout" />
                 </form>
-            </React.Fragment>
+            </header>
         )
     }
 }

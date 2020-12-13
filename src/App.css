@@ -2,13 +2,15 @@ main {
   /* CSS Vars */
   --box-margin: 2rem;
 
-  padding: var(--box-margin);
-
   display: flex;
   flex-flow: column nowrap;
   justify-items: stretch;
 
   flex-grow: 1;
+}
+
+header {
+  padding: var(--box-margin);
 }
 
 form {

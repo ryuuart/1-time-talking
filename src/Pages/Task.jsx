@@ -3,9 +3,9 @@ import React from "react";
 import Login from "./Login";
 
 // Components 
-import { GeneralReceiverDisplay, GeneralSenderDisplay } from '../Components/UI/Display';
+import { DayReceiverDisplay, DaySenderDisplay } from '../Components/UI/Display';
 
-export default class Messages extends React.Component {
+export default class Task extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -61,8 +61,8 @@ export default class Messages extends React.Component {
         return (
             <React.Fragment>
                 <Login initWebSocket={this.initWebSocket} setUserName={this.setUserName} />
-                <GeneralReceiverDisplay socket={this.state.ws} userName={this.state.userName} data={this.state.dataFromServer} className="messages-display--receiver" />
-                <GeneralSenderDisplay socket={this.state.ws} userName={this.state.userName} lassName="messages-display--sender" />
+                <DayReceiverDisplay socket={this.state.ws} userName={this.state.userName} data={this.state.dataFromServer} className="messages-display--receiver" />
+                <DaySenderDisplay socket={this.state.ws} userName={this.state.userName} lassName="messages-display--sender" />
             </React.Fragment>
         )
     }
