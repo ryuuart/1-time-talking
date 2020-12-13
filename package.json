@@ -30,7 +30,9 @@
     "dev": "pm2 start ecosystem.config.dev.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-prebuild": "npm i -f",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [
