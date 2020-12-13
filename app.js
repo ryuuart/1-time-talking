@@ -10,7 +10,7 @@ const app = express();
 
 // Serve React website if in Heroku
 if(process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, '/build')));
+    app.use(express.static(path.join(__dirname, 'build')));
 }
 
 // Enable CORS
