@@ -9,8 +9,8 @@ const wss = require('./controller/wsserver');
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log(chalk.greenBright("Connected to MongoDB"));
 
-    server.listen(parseInt(process.env.PORT) + 1 || 3000, function () {
-        console.log('Listening on http://localhost:' + (parseInt(process.env.PORT) + 1));
+    server.listen(process.env.PORT || 3000, '0.0.0.0', function () {
+        console.log('Listening on port: ' + process.env.PORT);
     });
 });
 

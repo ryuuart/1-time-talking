@@ -30,7 +30,10 @@ export default class Messages extends React.Component {
             this.ws.close();
         }
 
-        this.ws = new WebSocket("ws://192.168.1.172:8081/");
+        if (process.env.NODE_ENV === "development")
+            this.ws = new WebSocket("ws://192.168.1.172:8081/");
+        else if (process.env.NODE_ENV === "production")
+            this.ws = new WebSocket("ws://time-talking-app.herokuapp.com/");
         this.setState({
             ws: this.ws,
         })

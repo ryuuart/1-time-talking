@@ -41,7 +41,10 @@ export default class Music extends React.Component {
             this.ws.close();
         }
 
-        this.ws = new WebSocket("ws://192.168.1.172:8081/");
+        if (process.env.NODE_ENV === "development")
+            url = "http://192.168.1.172:8081/users/login"
+        else if (process.env.NODE_ENV === "production")
+            url = "https://time-talking-app.herokuapp.com/users/login/"
         this.setState({
             ws: this.ws,
         })

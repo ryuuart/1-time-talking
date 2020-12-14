@@ -34,7 +34,7 @@ export default class Day extends React.Component {
         if (process.env.NODE_ENV === "development")
             this.ws = new WebSocket("ws://192.168.1.172:8081/");
         else if (process.env.NODE_ENV === "production")
-            this.ws = new WebSocket("ws://time-talking-app.herokuapp.com");
+            this.ws = new WebSocket("ws://time-talking-app.herokuapp.com/");
         this.setState({
             ws: this.ws,
         })
