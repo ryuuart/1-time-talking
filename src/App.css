@@ -9,6 +9,12 @@ main {
   flex-grow: 1;
 }
 
+main > * {
+  position: relative;
+
+  z-index: 5;
+}
+
 header {
   padding: var(--box-margin);
 }
@@ -99,4 +105,14 @@ input[type=range]::-ms-track {
   background: transparent; 
   border-color: transparent;
   color: transparent;
+}
+
+iframe {
+  border: none;
+  
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  z-index: -1;
 }

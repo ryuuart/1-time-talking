@@ -2,6 +2,15 @@ import React from 'react';
 import { DateTime, Duration, Interval } from 'luxon';
 import { lerpColor, clamp } from '../../Utils/math';
 
+function getId(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = ("" + url).match(regExp);
+
+    return (match && match[2].length === 11)
+        ? match[2]
+        : null;
+}
+
 export class GeneralReceiverDisplay extends React.Component {
     constructor(props) {
         super(props);
@@ -325,6 +334,111 @@ export class TaskSenderDisplay extends React.Component {
                     </form>
                     <input type="button" onClick={this.setAvailability} value="Set Availability" />
                     <input type="button" onClick={this.props.resetHandler} value="Reset Availability" />
+                </div>
+            </React.Fragment>
+        )
+    }
+}
+
+export class MusicReceiverDisplay extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.ws = this.props.socket;
+    }
+
+    render() {
+        return (
+            <article className={`messages-display ${this.props.className}`} style={{ 
+                background: this.props.data && this.props.data.message.colorValue
+            }}>
+                <div style={{color: "white"}}>
+                    {this.props.data && this.props.data.message.textValue}
+                </div>
+                <iframe width="100%" height="100%" src={`//www.youtube.com/embed/${getId(this.props.data && this.props.data.message.yturl)}?autoplay=1`}>
+
+                </iframe>
+            </article>
+        )
+    }
+}
+
+export class MusicSenderDisplay extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            textValue: "", colorValue: "", message: {
+                textValue: "",
+                yturl: "",
+            },
+        };
+
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
+        this.setAvailability = this.setVideo.bind(this);
+    }
+
+    setVideo() {
+        this.props.enableModal();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.yturl !== this.props.yturl) {
+            this.setState((state, props) => ({
+                message: {
+                    textValue: state.textValue,
+                    yturl: props.yturl
+                }
+            }), () => {
+                this.props.socket && this.props.socket.send(JSON.stringify({ userName: this.props.userName, message: this.state.message }));
+            })
+        }
+    }
+
+    onSubmit(event) {
+        this.setState({
+            textValue: ""
+        }, () => {
+            this.props.socket && this.props.socket.send(JSON.stringify({ userName: this.props.userName, message: this.state.message }));
+        });
+        event.preventDefault();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timeInterval);
+    }
+
+    onTextChange(event) {
+        this.setState((state, props) => ({
+            textValue: event.target.value,
+            message: {
+                textValue: event.target.value,
+                yturl: props.yturl
+            }
+        }), () => {                
+            this.props.socket && this.props.socket.send(JSON.stringify({ userName: this.props.userName, message: this.state.message }));
+        })
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <article className={`messages-display ${this.props.className}`} style={{background: this.state.message.colorValue}}>
+                    <div className="messages-display--message" style={{color: "white"}}>
+                        {this.state.textValue}
+                    </div>
+                    <iframe width="100%" height="100%" src={`//www.youtube.com/embed/${getId(this.props.yturl)}?autoplay=1`}>
+
+                    </iframe>
+                </article>
+                <div className="task__form" style={{padding: "1rem 2rem"}}>
+                    <form className={`messages-display--form`} onSubmit={this.onSubmit} style={{marginBottom: "1rem"}}>
+                        <textarea rows="1" autoresize="true" value={this.state.textValue} onChange={this.onTextChange} />
+                        <input type="submit" value="Clear" />
+                    </form>
+                    <input type="button" onClick={this.props.enableModal} value="Set Video" />
+                    <input type="button" onClick={this.props.resetHandler} value="Reset Area" />
                 </div>
             </React.Fragment>
         )

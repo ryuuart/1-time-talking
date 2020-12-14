@@ -12,6 +12,8 @@
     flex-flow: column wrap;
 
     flex: 1 1 auto;
+
+    position: relative;
 }
 
 .messages-display:first-of-type {
@@ -61,6 +63,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    z-index: 999;
 }
 
 .modal__container {

@@ -2,9 +2,10 @@ import './App.css';
 import './Messages.css';
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Messages from "./Pages/Messages"
-import Day from "./Pages/Day"
-import Task from "./Pages/Task"
+import Messages from "./Pages/Messages";
+import Day from "./Pages/Day";
+import Music from "./Pages/Music";
+import Task from "./Pages/Task";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={() => <Messages />} />
           <Route path="/day" exact component={() => <Day />} />
-          <Route path="/music" exact component={() => <Messages />} />
+          <Route path="/music" exact component={() => <Music />} />
           <Route path="/task" exact component={() => <Task />} />
         </Switch>
       </Router>
