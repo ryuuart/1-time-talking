@@ -43,9 +43,9 @@ export default class Task extends React.Component {
         }
 
         if (process.env.NODE_ENV === "development")
-            url = "http://192.168.1.172:8081/users/login"
+            this.ws = new WebSocket("ws://192.168.1.172:8081/");
         else if (process.env.NODE_ENV === "production")
-            url = "https://time-talking-app.herokuapp.com/users/login/"
+            this.ws = new WebSocket("ws://time-talking-app.herokuapp.com/");
         this.setState({
             ws: this.ws,
         })

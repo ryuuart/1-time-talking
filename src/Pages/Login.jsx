@@ -59,7 +59,6 @@ export default class Login extends React.Component {
                     <label htmlFor="input">Your name</label>
                     <input onChange={this.onChange} type="text" />
                     <input type="submit" value="Login" />
-                    <input type="button" value="Logout" />
                 </form>
             </header>
         )
