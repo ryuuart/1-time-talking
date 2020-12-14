@@ -1,5 +1,5 @@
 import React from 'react';
-import { DateTime, Duration } from 'luxon';
+import { DateTime, Duration, Interval } from 'luxon';
 import { lerpColor, clamp } from '../../Utils/math';
 
 export class GeneralReceiverDisplay extends React.Component {
@@ -226,6 +226,107 @@ export class DaySenderDisplay extends React.Component {
                     <input type="submit" value="Clear" />
                 </form>
             </article>
+        )
+    }
+}
+
+export class TaskReceiverDisplay extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.ws = this.props.socket;
+    }
+
+    render() {
+        return (
+            <article className={`messages-display ${this.props.className}`} style={{ 
+                background: this.props.data && this.props.data.message.colorValue
+            }}>
+                {this.props.data && this.props.data.message.textValue}
+            </article>
+        )
+    }
+}
+
+export class TaskSenderDisplay extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            textValue: "", colorValue: "", message: {
+                textValue: "",
+                colorValue: "#FFFFFF",
+                clockValue: 0,
+            },
+        };
+
+        this.timeInterval = null;
+
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
+        this.setAvailability = this.setAvailability.bind(this);
+    }
+
+    setAvailability() {
+        this.props.enableModal();
+    }
+
+    onSubmit(event) {
+        this.setState({
+            textValue: ""
+        }, () => {
+            this.props.socket && this.props.socket.send(JSON.stringify({ userName: this.props.userName, message: this.state.message }));
+        });
+        event.preventDefault();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timeInterval);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.clockValue !== prevProps.clockValue) {
+            this.setState((state, props) => ({
+                message: {
+                    textValue: state.textValue,
+                    colorValue: lerpColor("#FFFFFF", "#FADE50", this.props.clockValue),
+                    clockValue: props.clockValue
+                }
+            }));
+            this.props.socket && this.props.socket.send(JSON.stringify({ userName: this.props.userName, message: this.state.message }));
+        }
+    }
+
+    onTextChange(event) {
+        this.setState((state, props) => ({
+            textValue: event.target.value,
+            message: {
+                textValue: event.target.value,
+                colorValue: state.message.colorValue,
+                clockValue: props.clockValue,
+            }
+        }), () => {                
+            this.props.socket && this.props.socket.send(JSON.stringify({ userName: this.props.userName, message: this.state.message }));
+        })
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <article className={`messages-display ${this.props.className}`} style={{background: this.state.message.colorValue}}>
+                    <div className="messages-display--message">
+                        {this.state.textValue}
+                    </div>
+                </article>
+                <div className="task__form" style={{padding: "1rem 2rem"}}>
+                    <form className={`messages-display--form`} onSubmit={this.onSubmit} style={{marginBottom: "1rem"}}>
+                        <textarea rows="1" autoresize="true" value={this.state.textValue} onChange={this.onTextChange} />
+                        <input type="submit" value="Clear" />
+                    </form>
+                    <input type="button" onClick={this.setAvailability} value="Set Availability" />
+                    <input type="button" onClick={this.props.resetHandler} value="Reset Availability" />
+                </div>
+            </React.Fragment>
         )
     }
 }

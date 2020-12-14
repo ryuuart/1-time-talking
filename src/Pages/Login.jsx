@@ -16,7 +16,7 @@ export default class Login extends React.Component {
             url = "http://192.168.1.172:8081/users/login"
         else if (process.env.NODE_ENV === "production")
             url = "https://time-talking-app.herokuapp.com/users/login"
-        fetch('', {
+        fetch(url, {
             method: 'POST', credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
